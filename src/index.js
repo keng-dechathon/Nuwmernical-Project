@@ -1,17 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+
+// const Fastify = require('fastify')
+// const hostname = 'localhost'
+// const port = 4000
+
+// const fastifyApp = Fastify({
+//   logger: true
+// })
+
+// fastifyApp.get('/', async (request, reply) => {
+//   reply.send('OK')
+// })
+
+// fastifyApp.listen(port, hostname, () => {
+//   console.log(`server is running on ${port}`);
+// })
 
 ReactDOM.render(
+
+
+
   <React.StrictMode>
+
     <App />
   </React.StrictMode>,
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+
