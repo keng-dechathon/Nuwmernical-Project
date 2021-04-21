@@ -17,20 +17,7 @@ routes.forEach((route, index) => {
   fastify.route(route)
 })
 
-const option = {
-  schema: {
-    response: {
-      200: {
-        type: 'object',
-        properties: {
-          name: { type: 'string' }
-        }
-      }
-    }
-  }
-}
-
-fastify.get('/',option, async (request, reply) => {
+fastify.get('/', async (request, reply) => {
   return { hello: 'world' }
 })
 
@@ -38,7 +25,7 @@ fastify.get('/',option, async (request, reply) => {
 // Run the server!
 const start = async () => {
   try {
-    await fastify.listen(4000, '0.0.0.0')
+    await fastify.listen(3000, '0.0.0.0')
     fastify.swagger()
     fastify.log.info(`server listening on ${fastify.server.address().port}`)
   } catch (err) {
