@@ -10,7 +10,6 @@ exports.getData = async (req, reply) => {
     }
 }
 
-
 exports.getSingleData = async (req, reply) => {
     try {
         const resalt = datas.filter(data => data.id == req.params.id)
