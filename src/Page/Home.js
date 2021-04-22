@@ -7,8 +7,7 @@ export default function Home() {
 
     return (
         <>       
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='videoBox'>
-               
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }} className='videoBox'>               
                 <video loop autoPlay muted >
                     <source src={"https://v.pinimg.com/videos/mc/720p/af/a3/06/afa306401897690941024fcddb25edb8.mp4"} type="video/mp4" />
                 </video>

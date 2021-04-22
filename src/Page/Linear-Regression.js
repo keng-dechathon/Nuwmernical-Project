@@ -103,7 +103,7 @@ export default function Linear() {
 
         await axios({
             method: "get",
-            url: `http://localhost:4000/api/data/interpolation${random}`,
+            url: `http://localhost:3000/api/data/interpolation${random}`,
         }).then((reply) => {
             api = reply.data;
             x = api.x;

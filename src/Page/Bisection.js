@@ -140,7 +140,7 @@ export default function Bisection() {
         }
         await axios({
             method: "get",
-            url: `http://localhost:4000/api/data/root${random}`,
+            url: `http://localhost:3000/api/data/root${random}`,
         }).then((reply) => {
             api = reply.data;
             console.log("reply: ", api);

@@ -159,7 +159,7 @@ export default function Guassjordan() {
         try {
             await axios({
                 method: "get",
-                url: `http://localhost:4000/api/data/Linears${random}`,
+                url: `http://localhost:3000/api/data/Linears${random}`,
             }).then((reply) => {
                 api = reply.data;
                 console.log("reply: ", api.size);

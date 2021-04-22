@@ -149,23 +149,22 @@ export default function Multiple() {
         setState(prev => ({ ...prev, showAns: false }));
         await axios({
             method: "get",
-            url: `http://localhost:4000/api/data/Multiple`,
+            url: `http://localhost:3000/api/data/Multiple`,
         }).then((reply) => {
             api = reply.data;
             n = api.n;
             m = api.m;
             console.log("reply: ", api);
-        });
-        await setState(prev => ({ ...prev, x: api.x }));
+        });       
         await inputForm();
         for (let i = 1; i <= api.n; i++) {
             for (let j = 1; j <= api.m; j++) {
                 if (i === 1) {
                     document.getElementById('xi' + j).value = api.Xi[j - 1];
                 }
-                document.getElementById('x' + i + "" + j).value = api.X[i - 1][j - 1];
+                document.getElementById('x' + i + "" + j).value = api.XX[i - 1][j - 1];
             }
-            document.getElementById('y' + i).value = api.Y[i - 1];
+            document.getElementById('y' + i).value = api.YY[i - 1];
         }
     }
     return (
