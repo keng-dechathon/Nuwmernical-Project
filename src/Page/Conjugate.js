@@ -9,7 +9,7 @@ const math = require("mathjs");
 
 
 
-let inputA = [], inputB = [], inputC = [], MatrixA = [], MatrixB = [], MatrixC = [], A = [], B = [], C = [], data = [], random = 0, ANS = [];
+let inputA = [], inputB = [], inputC = [], MatrixA = [], MatrixB = [], MatrixC = [], A = [],check=false, B = [], C = [], data = [], random = 0, ANS = [], forX = '', xikey = '';
 var columns = [
     {
         title: "Iteration",
@@ -21,11 +21,11 @@ var columns = [
         dataIndex: "lampda",
         key: "lampda"
     },
-    {
-        title: "x",
-        dataIndex: "x",
-        key: "x"
-    },
+    // {
+    //     title: "x",
+    //     dataIndex: "x",
+    //     key: "x"
+    // },
     {
         title: "Error",
         dataIndex: "error",
@@ -58,10 +58,12 @@ export default function Conjugate() {
                 inputA.push(<br />);
                 inputB.push(<br />);
                 inputC.push(<br />);
+
             }
+
             setState(prev => ({ ...prev, showInput: true }));
         }
-        else setError('Input lenght must be 2-9');
+        else setError('Input lenght must be 2-6');
     }
 
     function createMatrix() {
@@ -72,6 +74,23 @@ export default function Conjugate() {
             A = [];
             B = [];
             C = [];
+            columns = [
+                {
+                    title: "Iteration",
+                    dataIndex: "iteration",
+                    key: "iteration"
+                },
+                {
+                    title: "λ",
+                    dataIndex: "lampda",
+                    key: "lampda"
+                },
+                {
+                    title: "Error",
+                    dataIndex: "error",
+                    key: "error"
+                }
+            ];
             setError(false);
             for (let i = 0; i < size; i++) {
                 MatrixA[i] = [];
@@ -84,7 +103,15 @@ export default function Conjugate() {
                         return;
                     }
                     MatrixA[i][j] = a;
+
                 }
+                let xii = "x" + (i + 1);
+                xii = xii.toString();
+                columns.push({
+                    title: xii,
+                    dataIndex: xii,
+                    key: xii
+                })
                 let b = parseFloat(document.getElementById("b" + (i + 1)).value);
                 let c = parseFloat(document.getElementById("c" + (i + 1)).value);
                 if (isNaN(b) || isNaN(c)) {
@@ -102,10 +129,46 @@ export default function Conjugate() {
             setError(e.name)
         }
     }
+    function det(m) {
+        return math.det(m);
+    }
+    function checkPositivedef(sizeNow) {
+        // console.log(A._data[0][0]);
+        // console.log(det(A._data[0][0]));
+        // console.log(det(A));  
+        if (sizeNow <= size) {
+            let tempArr = [];
+            for (let i = 0; i < sizeNow; i++) {
+                tempArr[i] = [];
+                for (let j = 0; j < sizeNow; j++) {
+                    tempArr[i][j] = A._data[i][j];
+                }
+            }
+            console.log(tempArr);
+            console.log(det(tempArr));
+            if (det(tempArr) <= 0) {
+                check=true;
+                setError("Input must be Positive definite");                
+                return;
+            } else {
+                ANS.push(<h1>{'det ' + sizeNow + 'x' + sizeNow + ' : ' + det(tempArr)}</h1>);
+                checkPositivedef(sizeNow + 1);
+            }
+        }
+        else {          
+            return;
+        }
+    }
 
     function conjugate() {
         createMatrix();
-        // console.log(A);console.log(B);console.log(C);             
+        ANS = [];
+        check=false;
+        checkPositivedef(1);
+        // console.log(A);console.log(B);console.log(C);    
+        if(check) {
+            return;
+        }    
         data = [];
         let eps = 9999, Ri, Di, a0;
         let xi = math.clone(C);
@@ -116,28 +179,35 @@ export default function Conjugate() {
                 Di = math.multiply(-1, Ri);
                 ct++;
             }
+            //show det แต่ละ site && check positive matrix
             else {
                 let lampda = math.multiply(math.divide(math.multiply(math.transpose(Di), Ri), math.multiply(math.multiply(math.transpose(Di), A), Di)), -1);
                 xi = math.add(xi, Di.map((index) => { return index * math.squeeze(lampda) }));
                 Ri = math.subtract(math.multiply(A, xi), B);
                 eps = math.squeeze(math.sqrt(math.multiply(math.transpose(Ri), Ri)));
                 a0 = math.divide(math.multiply(math.multiply(math.transpose(Ri), A), Di), math.multiply(math.multiply(math.transpose(Di), A), Di));
-                let a3 =math.squeeze(a0);
-                let a2 = Di.map((index) => ( index * a3) );
-                Di = math.add(math.multiply(Ri, -1),a2);
+                let a3 = math.squeeze(a0);
+                let a2 = Di.map((index) => (index * a3));
+                Di = math.add(math.multiply(Ri, -1), a2);
                 data.push({
                     key: ct,
                     iteration: ct,
                     lampda: lampda._data,
-                    x: (math.squeeze(xi).format()),
                     error: eps
                 })
+                // console.log(columns);
+                for (let i = 0; i < size; i++) {
+                    xikey = "x" + (i + 1);
+                    xikey = xikey.toString();
+                    forX = (math.squeeze(xi).toArray())
+                    data[ct - 1][xikey] = forX[i];
+                }
                 ct++;
             }
         }
     }
     function Process() {
-        try {            
+        try {
             setState(prev => ({ ...prev, showAns: true }));
             conjugate();
         } catch (e) {
@@ -150,8 +220,26 @@ export default function Conjugate() {
         setState(prev => ({ ...prev, [name]: value, showInput: true, showAns: false }));
     }
     function Clear() {
+        columns = [
+            {
+                title: "Iteration",
+                dataIndex: "iteration",
+                key: "iteration"
+            },
+            {
+                title: "λ",
+                dataIndex: "lampda",
+                key: "lampda"
+            },
+            {
+                title: "Error",
+                dataIndex: "error",
+                key: "error"
+            }
+        ];
         setState({ ...initial });
         setError(false);
+        check=false;
         data = [];
         inputA = [];
         inputB = [];
@@ -162,6 +250,7 @@ export default function Conjugate() {
         A = [];
         B = [];
         C = [];
+        ANS = [];
     }
     async function getExample() {
         let api;

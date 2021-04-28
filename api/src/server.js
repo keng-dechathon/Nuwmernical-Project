@@ -14,13 +14,16 @@ fastify.register(require("fastify-cors"), {
 
 
 routes.forEach((route, index) => {
-  fastify.route(route)
+  fastify.route(route) 
 })
 
 fastify.get('/', async (request, reply) => {
   return { hello: 'world' }
 })
 
+// fastify.get('/api/data/a', async (request, reply) => {
+//   return { hello: 'world' }
+// })
 
 // Run the server!
 const start = async () => {

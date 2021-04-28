@@ -173,7 +173,7 @@ export default function Secant() {
                     </Answer >
                 </InputBox>
                 <ShowGraph >
-                    {showGraph && <Graph fx={fx} title="Secant Method" id='showGraph' />}
+                    {showGraph && <Graph fx={fx} xl={x0} xr={x1} root={data[data.length - 1].x2 } title="Secant Method" id='showGraph' />}
                 </ShowGraph>
             </GraphBox>
             {showTable && <Table columns={columns} dataSource={data} style={{ marginTop: '20px', border: '1px solid black' }} />}

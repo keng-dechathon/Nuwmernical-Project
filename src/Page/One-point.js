@@ -173,7 +173,7 @@ export default function OnePoint() {
                     </Answer >
                 </InputBox>
                 <ShowGraph >
-                    {Value.showGraph && <Graph fx={Value.fx} title="One-Point Method" id='showGraph' />}
+                    {Value.showGraph && <Graph fx={Value.fx} title="One-Point Method"  root={data[data.length - 1].x1 } id='showGraph' />}
                 </ShowGraph>
             </GraphBox>
             {(!Error && Value.showTable) && <Table columns={columns} dataSource={data} style={{ marginTop: '20px', border: '1px solid black' }} />}

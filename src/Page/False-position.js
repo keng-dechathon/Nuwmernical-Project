@@ -182,7 +182,7 @@ export default function FalsePosition() {
                     </Answer >
                 </InputBox>
                 <ShowGraph >
-                    {Value.showGraph && <Graph fx={Value.fx} title="False-Position Method" id='showGraph' />}
+                    {Value.showGraph && <Graph fx={Value.fx} xl={Value.xl} xr={Value.xr} root={data[data.length - 1].x1 } title="False-Position Method" id='showGraph' />}
                 </ShowGraph>
             </GraphBox>
 

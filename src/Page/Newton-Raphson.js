@@ -161,7 +161,7 @@ export default function NewtonRaphson() {
                     </Answer >
                 </InputBox>
                 <ShowGraph >
-                    {showGraph && <Graph fx={fx} title="Newton-Raphson Method" id='showGraph' />}
+                    {showGraph && <Graph fx={fx} root={data[data.length - 1].x} title="Newton-Raphson Method" id='showGraph' />}
                 </ShowGraph>
             </GraphBox>
             {showTable && <Table columns={columns} dataSource={data} style={{ marginTop: '20px', border: '1px solid black' }} />}

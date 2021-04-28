@@ -53,9 +53,9 @@ body{
   justify-content: center !important;
   align-items: center !important; 
 }
-.modebar{
+/* .modebar{
   display: none !important;
-}
+} */
 button{
   width: 70px;
 }

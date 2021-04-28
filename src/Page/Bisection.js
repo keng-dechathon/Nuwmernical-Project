@@ -50,7 +50,6 @@ export default function Bisection() {
         var xm_now = (xl + xr) / 2;
         var f_xr = compile(Value.fx).evaluate({ x: xr });
         var f_xm = compile(Value.fx).evaluate({ x: xm_now });
-
         if ((f_xm * f_xr) < 0) xl = xm_now;
         else if ((f_xm * f_xr) > 0) xr = xm_now;
         else {
@@ -201,12 +200,10 @@ export default function Bisection() {
                     </Answer >
                 </InputBox>
                 <ShowGraph>
-                    {Value.showGraph && <Graph fx={Value.fx} title="Bisection Method" id='showGraph' />}
+                    {(!Error && data[0] && Value.showGraph) && <Graph fx={Value.fx} xl={Value.xl} xr={Value.xr} root={data[data.length - 1].x } title="Bisection Method" id='showGraph' />}
                 </ShowGraph>
-            </GraphBox>
+            </GraphBox>           
             {Value.showTable && <Table columns={columns} dataSource={data} style={{ marginTop: '20px', border: '1px solid black' }} />}
-
-
         </>
     );
 
